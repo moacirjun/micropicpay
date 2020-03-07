@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Wallet extends Model
 {
     /**
      * @inheritDoc
@@ -18,11 +18,11 @@ class User extends Model
 
     public function payments()
     {
-        return $this->hasMany('App\entity\Transaction', 'origin_wallet_id');
+        return $this->hasMany('App\Entity\Transaction', 'origin_wallet_id');
     }
 
     public function paymentsReceived()
     {
-        return $this->hasMany('App\entity\Transaction', 'target_wallet_id');
+        return $this->hasMany('App\Entity\Transaction', 'target_wallet_id');
     }
 }
