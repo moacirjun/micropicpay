@@ -14,5 +14,5 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->get('/', function () {
         echo 'Micro PicPay API Version 1.0.0';
     });
-    $router->get('user/{id}/pay', ['uses' => 'UserController@pay']);
+    $router->post('user/{id}/pay', ['uses' => 'UserController@pay']);
 });
