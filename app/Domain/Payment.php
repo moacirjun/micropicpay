@@ -54,4 +54,16 @@ class Payment
     {
         return $this->value;
     }
+
+    /**
+     * @return array
+     */
+    public function toArray() : array
+    {
+        return [
+            'origin_user' => $this->originUser->toArray(),
+            'target_user' => $this->targetUser->toArray(),
+            'value' => $this->value,
+        ];
+    }
 }
