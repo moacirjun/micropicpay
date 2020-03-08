@@ -3,18 +3,25 @@
 namespace App\Services\User\Payment;
 
 use App\Domain\Payment;
+use \App\Services\Transference\Service as TransferenceService;
+use App\Services\Transference\Message\Publisher as TransferenceMessagePublisher;
 
 class Service
 {
     /**
      * Executes the User Payment
-     *
      * @param Payment $payment
      */
     public static function execute(Payment $payment)
     {
-        //Validate
-        //Make change in database
-        //Publish Result Message
+        $validationErrors = Validator::validate($payment);
+
+        if (sizeof($validationErrors)) {
+            throw new \InvalidArgumentException('Erro de validação de pagamento');
+        }
+
+        $transference = TransferenceService::processPayment($payment);
+
+        TransferenceMessagePublisher::publish($transference);
     }
 }
