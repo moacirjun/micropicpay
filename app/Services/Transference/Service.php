@@ -7,15 +7,16 @@ use App\Entity\Transaction;
 use App\Entity\Wallet;
 use Faker\Provider\Uuid;
 use Illuminate\Support\Facades\DB;
+use App\Contracts\Services\Transference\ServiceInterface as TransferenceServiceInterface;
 
-class Service
+class Service implements TransferenceServiceInterface
 {
     /**
      * Insets a Transference in database and modify the value of the destination and source wallets
      * @param Payment $payment
      * @return Transaction
      */
-    public static function processPayment(Payment $payment) : Transaction
+    public function processPayment(Payment $payment) : Transaction
     {
         $originUser = $payment->getOriginUser();
         $originWallet = (new Wallet)->newQuery()->where('user_id', $originUser->id)->first();

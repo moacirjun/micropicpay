@@ -53,7 +53,16 @@ $app->singleton(
 $app->singleton(
     App\Contracts\Services\User\Payment\ServiceInterface::class,
     function ($app) {
-        return new App\Services\User\Payment\Service();
+        return new App\Services\User\Payment\Service(
+            $app->make(App\Contracts\Services\Transference\ServiceInterface::class)
+        );
+    }
+);
+
+$app->singleton(
+    App\Contracts\Services\Transference\ServiceInterface::class,
+    function ($app) {
+        return new App\Services\Transference\Service();
     }
 );
 

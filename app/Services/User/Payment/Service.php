@@ -3,12 +3,26 @@
 namespace App\Services\User\Payment;
 
 use App\Domain\Payment;
-use \App\Services\Transference\Service as TransferenceService;
+use App\Contracts\Services\Transference\ServiceInterface as TransferenceServiceInterface;
 use App\Services\Transference\Message\Publisher as TransferenceMessagePublisher;
 use App\Contracts\Services\User\Payment\ServiceInterface as UserPaymentServiceInterface;
 
 class Service implements UserPaymentServiceInterface
 {
+    /**
+     * @var TransferenceServiceInterface
+     */
+    private $transferenceService;
+
+    /**
+     * Service constructor.
+     * @param TransferenceServiceInterface $transferenceService
+     */
+    public function __construct(TransferenceServiceInterface $transferenceService)
+    {
+        $this->transferenceService = $transferenceService;
+    }
+
     /**
      * @inheritDoc
      */
@@ -20,7 +34,7 @@ class Service implements UserPaymentServiceInterface
             throw new \InvalidArgumentException('Erro de validação de pagamento');
         }
 
-        $transference = TransferenceService::processPayment($payment);
+        $transference = $this->transferenceService->processPayment($payment);
 
         TransferenceMessagePublisher::publish($transference);
     }
