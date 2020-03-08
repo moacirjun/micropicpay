@@ -3,12 +3,14 @@
 
 namespace App\Enums;
 
-use SplEnum;
+use MyCLabs\Enum\Enum;
 
-class UserType extends SplEnum
+/**
+ * @method static self INDIVIDUAL()
+ * @method static self CORPORATION()
+ */
+class UserType extends Enum
 {
-    const __default = 1;
-
-    const INDIVIDUAL = 1;
-    const CORPORATION = 2;
+    private const INDIVIDUAL = 1;
+    private const CORPORATION = 2;
 }
