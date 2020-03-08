@@ -54,7 +54,8 @@ $app->singleton(
     App\Contracts\Services\User\Payment\ServiceInterface::class,
     function ($app) {
         return new App\Services\User\Payment\Service(
-            $app->make(App\Contracts\Services\Transference\ServiceInterface::class)
+            $app->make(App\Contracts\Services\Transference\ServiceInterface::class),
+            $app->make(App\Contracts\Services\User\Payment\ValidatorInterface::class)
         );
     }
 );
@@ -63,6 +64,15 @@ $app->singleton(
     App\Contracts\Services\Transference\ServiceInterface::class,
     function ($app) {
         return new App\Services\Transference\Service();
+    }
+);
+
+$app->bind(
+    App\Contracts\Services\User\Payment\ValidatorInterface::class,
+    function ($app) {
+        return new App\Services\User\Payment\Validator(
+            $app->make(App\Contracts\Repository\WalletRepositoryInterface::class)
+        );
     }
 );
 
