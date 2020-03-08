@@ -5,7 +5,6 @@ namespace App\Services\User\Payment\Request;
 use App\Domain\Payment;
 use App\Entity\User;
 use App\Services\Payment\Publisher;
-use App\Services\User\Payment\Result;
 use Illuminate\Http\Request;
 
 class Resolver
