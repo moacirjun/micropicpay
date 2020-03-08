@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\PublicInterfaces\Repository\WalletRepositoryInterface;
+use App\Contracts\Repository\WalletRepositoryInterface;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class WalletRepository extends BaseRepository implements WalletRepositoryInterface

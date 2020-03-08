@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\Domain\Payment;
-use App\Services\User\Payment\Service as UserPaymentService;
+use App\Contracts\Services\User\Payment\ServiceInterface as UserPaymentServiceInterface;
 
 class PaymentResolver extends Job
 {
@@ -27,12 +27,10 @@ class PaymentResolver extends Job
     }
 
     /**
-     * Execute the job.
-     *
-     * @return void
+     * @param UserPaymentServiceInterface $service
      */
-    public function handle()
+    public function handle(UserPaymentServiceInterface $service)
     {
-        UserPaymentService::execute($this->payment);
+        $service->execute($this->payment);
     }
 }

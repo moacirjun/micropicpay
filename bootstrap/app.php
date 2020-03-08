@@ -46,8 +46,15 @@ $app->singleton(
 );
 
 $app->singleton(
-    App\PublicInterfaces\Repository\WalletRepositoryInterface::class,
+    App\Contracts\Repository\WalletRepositoryInterface::class,
     App\Repository\WalletRepository::class
+);
+
+$app->singleton(
+    App\Contracts\Services\User\Payment\ServiceInterface::class,
+    function ($app) {
+        return new App\Services\User\Payment\Service();
+    }
 );
 
 /*

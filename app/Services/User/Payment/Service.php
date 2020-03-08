@@ -5,14 +5,14 @@ namespace App\Services\User\Payment;
 use App\Domain\Payment;
 use \App\Services\Transference\Service as TransferenceService;
 use App\Services\Transference\Message\Publisher as TransferenceMessagePublisher;
+use App\Contracts\Services\User\Payment\ServiceInterface as UserPaymentServiceInterface;
 
-class Service
+class Service implements UserPaymentServiceInterface
 {
     /**
-     * Executes the User Payment
-     * @param Payment $payment
+     * @inheritDoc
      */
-    public static function execute(Payment $payment)
+    public function execute(Payment $payment)
     {
         $validationErrors = Validator::validate($payment);
 
