@@ -51,6 +51,16 @@ $app->singleton(
 );
 
 $app->singleton(
+    App\Contracts\Repository\UserRepositoryInterface::class,
+    App\Repository\UserRepository::class
+);
+
+$app->singleton(
+    App\Contracts\Repository\TransactionRepositoryInterface::class,
+    App\Repository\TransactionRepository::class
+);
+
+$app->singleton(
     App\Contracts\Services\User\Payment\ServiceInterface::class,
     function ($app) {
         return new App\Services\User\Payment\Service(
@@ -62,9 +72,7 @@ $app->singleton(
 
 $app->singleton(
     App\Contracts\Services\Transference\ServiceInterface::class,
-    function ($app) {
-        return new App\Services\Transference\Service();
-    }
+    App\Services\Transference\Service::class
 );
 
 $app->bind(
