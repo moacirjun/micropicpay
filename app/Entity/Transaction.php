@@ -11,6 +11,13 @@ class Transaction extends Model
      */
     protected $table = 'tb_transaction';
 
+    protected $fillable = [
+        'origin_wallet_id',
+        'target_wallet_id',
+        'value',
+        'hash'
+    ];
+
     public function originWallet()
     {
         return $this->belongsTo('App\Entity\Wallet', 'origin_wallet_id');

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\User\Payment\Request\Resolver as UserPaymentRequestResolver;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
-use App\Services\User\Payment\JsonResponseFactory as UserPaymentResponseFactory;
+use App\Services\User\Payment\Request\JsonResponseFactory as UserPaymentResponseFactory;
 
 class UserController extends BaseController
 {
