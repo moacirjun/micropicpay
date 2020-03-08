@@ -2,11 +2,11 @@
 
 namespace App\Repository;
 
-use App\Contracts\Repository\UserRepositoryInterface;
+use App\Contracts\Repository\TransactionRepositoryInterface;
 use App\Entity\Transaction;
 use Prettus\Repository\Eloquent\BaseRepository;
 
-class TransactionRepository extends BaseRepository implements UserRepositoryInterface
+class TransactionRepository extends BaseRepository implements TransactionRepositoryInterface
 {
     /**
      * @inheritDoc

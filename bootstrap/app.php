@@ -72,7 +72,12 @@ $app->singleton(
 
 $app->singleton(
     App\Contracts\Services\Transference\ServiceInterface::class,
-    App\Services\Transference\Service::class
+    function ($app) {
+        return new App\Services\Transference\Service(
+            $app->make(App\Contracts\Repository\TransactionRepositoryInterface::class),
+            $app->make(App\Contracts\Repository\WalletRepositoryInterface::class)
+        );
+    }
 );
 
 $app->bind(
