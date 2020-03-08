@@ -6,6 +6,7 @@ namespace App\Services\User\Payment\Request;
 class Validator
 {
     /**
+     * Verify origin and target user exists, and if 'value' field is set
      * @param $originUserId
      * @param array $data
      * @return array
