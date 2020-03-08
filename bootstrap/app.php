@@ -45,6 +45,11 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
+$app->singleton(
+    App\PublicInterfaces\Repository\WalletRepositoryInterface::class,
+    App\Repository\WalletRepository::class
+);
+
 /*
 |--------------------------------------------------------------------------
 | Register Config Files
@@ -88,6 +93,7 @@ $app->configure('app');
 |
 */
 
+$app->register(Prettus\Repository\Providers\LumenRepositoryServiceProvider::class);
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
