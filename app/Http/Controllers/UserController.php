@@ -2,16 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\User\Payment\Request\Resolver as UserPaymentRequestResolver;
+use App\Contracts\Services\User\Payment\Request\ResolverInterface as UserPaymentRequestResolverInterface;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Services\User\Payment\Request\JsonResponseFactory as UserPaymentResponseFactory;
 
 class UserController extends BaseController
 {
+    /**
+     * @var UserPaymentRequestResolverInterface
+     */
+    private $requestResolver;
+
+    /**
+     * UserController constructor.
+     * @param UserPaymentRequestResolverInterface $requestResolver
+     */
+    public function __construct(UserPaymentRequestResolverInterface $requestResolver)
+    {
+        $this->requestResolver = $requestResolver;
+    }
+
     public function pay(Request $request)
     {
-        $result = UserPaymentRequestResolver::resolve($request);
+        $result = $this->requestResolver->resolve($request);
         return UserPaymentResponseFactory::make($result);
     }
 }

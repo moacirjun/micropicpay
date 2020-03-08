@@ -89,6 +89,15 @@ $app->bind(
     }
 );
 
+$app->bind(
+    App\Contracts\Services\User\Payment\Request\ResolverInterface::class,
+    function ($app) {
+        return new App\Services\User\Payment\Request\Resolver(
+            $app->make(App\Contracts\Repository\UserRepositoryInterface::class)
+        );
+    }
+);
+
 /*
 |--------------------------------------------------------------------------
 | Register Config Files

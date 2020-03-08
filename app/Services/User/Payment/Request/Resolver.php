@@ -2,19 +2,32 @@
 
 namespace App\Services\User\Payment\Request;
 
+use App\Contracts\Repository\UserRepositoryInterface;
+use App\Contracts\Services\User\Payment\Request\ResolverInterface;
 use App\Domain\Payment;
-use App\Entity\User;
 use App\Services\Payment\Publisher;
 use Illuminate\Http\Request;
 
-class Resolver
+class Resolver implements ResolverInterface
 {
     /**
-     * Resolves the User Payment Request. This method validate request, and create a PaymentResolver Queue
-     * @param Request $request
-     * @return Result
+     * @var UserRepositoryInterface
      */
-    public static function resolve(Request $request) : Result
+    private $userRepository;
+
+    /**
+     * Resolver constructor.
+     * @param UserRepositoryInterface $userRepository
+     */
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function resolve(Request $request) : Result
     {
         try {
             $originUser = $request->route('id');
@@ -26,12 +39,8 @@ class Resolver
                 return new Result($request, null, $validationErrors);
             }
 
-            $originUserInstance = (new User)->newQuery()
-                ->with('wallet')
-                ->find($originUser);
-            $targetUserInstance = (new User)->newQuery()
-                ->with('wallet')
-                ->find($payload['target_user']);
+            $originUserInstance = $this->userRepository->find($originUser);
+            $targetUserInstance = $this->userRepository->find($payload['target_user']);
 
             $payment = new Payment($originUserInstance, $targetUserInstance, $payload['value']);
 

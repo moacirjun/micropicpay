@@ -1,0 +1,18 @@
+<?php
+
+
+namespace App\Contracts\Services\User\Payment\Request;
+
+
+use App\Services\User\Payment\Request\Result;
+use Illuminate\Http\Request;
+
+interface ResolverInterface
+{
+    /**
+     * Resolves the User Payment Request. This method validate request, and create a PaymentResolver Queue
+     * @param Request $request
+     * @return Result
+     */
+    public function resolve(Request $request) : Result;
+}
