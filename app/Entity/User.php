@@ -10,11 +10,11 @@ class User extends Model
      * @inheritDoc
      */
     protected $table = 'tb_user';
-    
+
     /**
      * @inheritDoc
      */
-    protected $fillable = ['name', 'age'];
+    protected $fillable = ['name', 'age', 'type'];
 
     public function Wallet()
     {
