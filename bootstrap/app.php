@@ -65,7 +65,8 @@ $app->singleton(
     function ($app) {
         return new App\Services\User\Payment\Service(
             $app->make(App\Contracts\Services\Transference\ServiceInterface::class),
-            $app->make(App\Contracts\Services\User\Payment\ValidatorInterface::class)
+            $app->make(App\Contracts\Services\User\Payment\ValidatorInterface::class),
+            $app->make(App\Contracts\Services\Transference\Message\RabbitMQPublisherInterface::class)
         );
     }
 );
@@ -93,9 +94,15 @@ $app->bind(
     App\Contracts\Services\User\Payment\Request\ResolverInterface::class,
     function ($app) {
         return new App\Services\User\Payment\Request\Resolver(
-            $app->make(App\Contracts\Repository\UserRepositoryInterface::class)
+            $app->make(App\Contracts\Repository\UserRepositoryInterface::class),
+            $app->make(App\Contracts\Services\User\Payment\ServiceInterface::class)
         );
     }
+);
+
+$app->bind(
+    App\Contracts\Services\Transference\Message\RabbitMQPublisherInterface::class,
+    App\Services\Transference\Message\RabbitMQPublisher::class
 );
 
 /*
@@ -110,6 +117,7 @@ $app->bind(
 */
 
 $app->configure('app');
+$app->configure('amqp');
 
 /*
 |--------------------------------------------------------------------------
@@ -142,6 +150,7 @@ $app->configure('app');
 */
 
 $app->register(Prettus\Repository\Providers\LumenRepositoryServiceProvider::class);
+$app->register(Anik\Amqp\ServiceProviders\AmqpServiceProvider::class);
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);

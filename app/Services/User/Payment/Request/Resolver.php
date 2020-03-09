@@ -4,8 +4,10 @@ namespace App\Services\User\Payment\Request;
 
 use App\Contracts\Repository\UserRepositoryInterface;
 use App\Contracts\Services\User\Payment\Request\ResolverInterface;
+use App\Contracts\Services\User\Payment\ServiceInterface;
 use App\Domain\Payment;
 use App\Services\Payment\Publisher;
+use App\Services\Payment\RabbitMQPublisher;
 use Illuminate\Http\Request;
 
 class Resolver implements ResolverInterface
@@ -16,12 +18,19 @@ class Resolver implements ResolverInterface
     private $userRepository;
 
     /**
+     * @var ServiceInterface
+     */
+    private $userPaymentService;
+
+    /**
      * Resolver constructor.
      * @param UserRepositoryInterface $userRepository
+     * @param ServiceInterface $userPaymentService
      */
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository, ServiceInterface $userPaymentService)
     {
         $this->userRepository = $userRepository;
+        $this->userPaymentService = $userPaymentService;
     }
 
     /**
@@ -44,7 +53,9 @@ class Resolver implements ResolverInterface
 
             $payment = new Payment($originUserInstance, $targetUserInstance, $payload['value']);
 
-            Publisher::publishMessage($payment);
+//            Publisher::publishMessage($payment);
+//            (new RabbitMQPublisher)->publish($payment->toArray());
+            $this->userPaymentService->execute($payment);
 
             return new Result($request, $payment);
         } catch (\Exception $exception) {
