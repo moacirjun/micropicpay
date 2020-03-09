@@ -53,9 +53,8 @@ class Resolver implements ResolverInterface
 
             $payment = new Payment($originUserInstance, $targetUserInstance, $payload['value']);
 
-//            Publisher::publishMessage($payment);
-//            (new RabbitMQPublisher)->publish($payment->toArray());
-            $this->userPaymentService->execute($payment);
+            //(new RabbitMQPublisher)->publish($payment->toArray()); //Executing payment asynchronously
+            $this->userPaymentService->execute($payment); //Execute payment in User Request
 
             return new Result($request, $payment);
         } catch (\Exception $exception) {

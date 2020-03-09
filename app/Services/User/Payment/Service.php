@@ -56,7 +56,6 @@ class Service implements UserPaymentServiceInterface
 
         $transference = $this->transferenceService->processPayment($payment);
 
-        TransferenceMessagePublisher::publish($transference);
         $this->rabbitMQPublisher->publish($transference->toArray());
     }
 }

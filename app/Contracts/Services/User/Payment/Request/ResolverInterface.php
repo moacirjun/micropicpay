@@ -11,6 +11,7 @@ interface ResolverInterface
 {
     /**
      * Resolves the User Payment Request. This method validate request, and create a PaymentResolver Queue
+     * or already executes the payment
      * @param Request $request
      * @return Result
      */
