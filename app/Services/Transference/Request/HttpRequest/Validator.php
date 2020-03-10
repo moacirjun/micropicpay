@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Services\User\Payment\Request;
+namespace App\Services\Transference\Request\HttpRequest;
 
 class Validator
 {

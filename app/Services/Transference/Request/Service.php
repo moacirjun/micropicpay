@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\User\Payment;
+namespace App\Services\Transference\Request;
 
 use App\Domain\Payment;
 use App\Contracts\Services\Transference\ServiceInterface as TransferenceServiceInterface;

@@ -63,7 +63,7 @@ $app->singleton(
 $app->singleton(
     App\Contracts\Services\User\Payment\ServiceInterface::class,
     function ($app) {
-        return new App\Services\User\Payment\Service(
+        return new App\Services\Transference\Request\Service(
             $app->make(App\Contracts\Services\Transference\ServiceInterface::class),
             $app->make(App\Contracts\Services\User\Payment\ValidatorInterface::class),
             $app->make(App\Contracts\Services\Transference\Message\RabbitMQPublisherInterface::class)
@@ -84,7 +84,7 @@ $app->singleton(
 $app->bind(
     App\Contracts\Services\User\Payment\ValidatorInterface::class,
     function ($app) {
-        return new App\Services\User\Payment\Validator(
+        return new App\Services\Transference\Request\Validator(
             $app->make(App\Contracts\Repository\WalletRepositoryInterface::class)
         );
     }
@@ -93,7 +93,7 @@ $app->bind(
 $app->bind(
     App\Contracts\Services\User\Payment\Request\ResolverInterface::class,
     function ($app) {
-        return new App\Services\User\Payment\Request\Resolver(
+        return new App\Services\Transference\Request\HttpRequest\Resolver(
             $app->make(App\Contracts\Repository\UserRepositoryInterface::class),
             $app->make(App\Contracts\Services\User\Payment\ServiceInterface::class)
         );

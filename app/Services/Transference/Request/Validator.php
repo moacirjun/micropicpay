@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Services\User\Payment;
+namespace App\Services\Transference\Request;
 
 use App\Domain\Payment;
 use App\Entity\Wallet;

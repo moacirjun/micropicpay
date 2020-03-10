@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\User\Payment\Request;
+namespace App\Services\Transference\Request\HttpRequest;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;

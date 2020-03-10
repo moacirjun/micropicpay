@@ -4,7 +4,7 @@
 namespace App\Contracts\Services\User\Payment\Request;
 
 
-use App\Services\User\Payment\Request\Result;
+use App\Services\Transference\Request\HttpRequest\Result;
 use Illuminate\Http\Request;
 
 interface ResolverInterface
