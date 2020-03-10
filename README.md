@@ -49,9 +49,8 @@ por criar as filas. Antes disso as mensagens publicadas no RabbitMQ serão perdi
 - cURL para teste
 ```shell script
 curl --request POST \
-  --url http://localhost:9090/api/v1/user/2/pay \
+  --url http://localhost:9090/api/v1/user/1/pay \
   --header 'cache-control: no-cache' \
   --header 'content-type: application/json' \
-  --header 'postman-token: 3913f260-eee4-6bce-3929-ac21ac423244' \
-  --data '{\n	"target_user": 1,\n	"value": 0.01\n}'
+  --data '{"target_user": 2, "value": 0.01}'
 ```
