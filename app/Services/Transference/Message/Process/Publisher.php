@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\Transference\Message;
+namespace App\Services\Transference\Message\Process;
 
 use App\Contracts\Services\Transference\Process\Message\RabbitMQPublisherInterface;
 use App\RabbitMQ\AbstractPublisher;
 
-class RabbitMQPublisher extends AbstractPublisher implements RabbitMQPublisherInterface
+class Publisher extends AbstractPublisher implements RabbitMQPublisherInterface
 {
     public function getRoutingKey(): string
     {

@@ -3,8 +3,7 @@
 
 namespace App\Console\Commands;
 
-use Anik\Amqp\ConsumableMessage;
-use App\Contracts\Services\Transference\Process\Message\RabbitMQPublisherInterface;
+use App\Services\Transference\Message\Process\Consumer as TransferenceMessageProcessConsumer;
 use Illuminate\Console\Command;
 
 class TransferenceResultMessageConsumer extends Command
@@ -36,32 +35,6 @@ class TransferenceResultMessageConsumer extends Command
     public function handle()
     {
         $this->info("Consuming Transference Result Messages...");
-
-        $closure = function (ConsumableMessage $message) {
-            echo date('[d/m/Y H:s:i]') . ' Processing... MESSAGE: ' . $message->getStream() . PHP_EOL;
-            $message->getDeliveryInfo()->acknowledge();
-        };
-
-        app('amqp')->consume($closure, '', $this->getConfig());
-    }
-
-    private function getConfig()
-    {
-        return [
-            'exchange' => [
-                'declare' => true,
-                'type' => 'fanout',
-                'name' => RabbitMQPublisherInterface::EXCHANGE_NAME,
-            ],
-            'queue' => [
-                'name' => RabbitMQPublisherInterface::QUEUE_NAME,
-                'declare' => true,
-                'exclusive' => false,
-            ],
-            'qos' => [
-                'enabled' => true,
-                'qos_prefetch_count' => 5,
-            ],
-        ];
+        (new TransferenceMessageProcessConsumer)->consume();
     }
 }
