@@ -3,17 +3,17 @@
 namespace App\Services\Transference\Process;
 
 use App\Domain\Payment;
-use App\Contracts\Services\Transference\ServiceInterface as TransferenceServiceInterface;
+use App\Contracts\Services\Transference\Process\DataBaseManagerServiceInterface as TransferenceDBManagerInterface;
 use App\Contracts\Services\User\Payment\ServiceInterface as UserPaymentServiceInterface;
 use App\Contracts\Services\User\Payment\ValidatorInterface as UserPaymentValidatorInterface;
-use App\Contracts\Services\Transference\Message\RabbitMQPublisherInterface;
+use App\Contracts\Services\Transference\Process\Message\RabbitMQPublisherInterface;
 
 class Service implements UserPaymentServiceInterface
 {
     /**
-     * @var TransferenceServiceInterface
+     * @var TransferenceDBManagerInterface
      */
-    private $transferenceService;
+    private $transferenceDBManagerService;
 
     /**
      * @var UserPaymentValidatorInterface
@@ -27,16 +27,16 @@ class Service implements UserPaymentServiceInterface
 
     /**
      * Service constructor.
-     * @param TransferenceServiceInterface $transferenceService
+     * @param TransferenceDBManagerInterface $transferenceService
      * @param UserPaymentValidatorInterface $validator
      * @param RabbitMQPublisherInterface $rabbitMQPublisher
      */
     public function __construct(
-        TransferenceServiceInterface $transferenceService,
+        TransferenceDBManagerInterface $transferenceService,
         UserPaymentValidatorInterface $validator,
         RabbitMQPublisherInterface $rabbitMQPublisher
     ) {
-        $this->transferenceService = $transferenceService;
+        $this->transferenceDBManagerService = $transferenceService;
         $this->validator = $validator;
         $this->rabbitMQPublisher = $rabbitMQPublisher;
     }
@@ -53,7 +53,7 @@ class Service implements UserPaymentServiceInterface
             throw new \InvalidArgumentException('Erro de validação de pagamento');
         }
 
-        $transference = $this->transferenceService->processPayment($payment);
+        $transference = $this->transferenceDBManagerService->persist($payment);
 
         $this->rabbitMQPublisher->publish($transference->toArray());
     }

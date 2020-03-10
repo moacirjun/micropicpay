@@ -64,17 +64,17 @@ $app->singleton(
     App\Contracts\Services\User\Payment\ServiceInterface::class,
     function ($app) {
         return new App\Services\Transference\Process\Service(
-            $app->make(App\Contracts\Services\Transference\ServiceInterface::class),
+            $app->make(App\Contracts\Services\Transference\Process\DataBaseManagerServiceInterface::class),
             $app->make(App\Contracts\Services\User\Payment\ValidatorInterface::class),
-            $app->make(App\Contracts\Services\Transference\Message\RabbitMQPublisherInterface::class)
+            $app->make(App\Contracts\Services\Transference\Process\Message\RabbitMQPublisherInterface::class)
         );
     }
 );
 
 $app->singleton(
-    App\Contracts\Services\Transference\ServiceInterface::class,
+    App\Contracts\Services\Transference\Process\DataBaseManagerServiceInterface::class,
     function ($app) {
-        return new App\Services\Transference\Service(
+        return new App\Services\Transference\Process\DataBaseManagerService(
             $app->make(App\Contracts\Repository\TransactionRepositoryInterface::class),
             $app->make(App\Contracts\Repository\WalletRepositoryInterface::class)
         );
@@ -101,7 +101,7 @@ $app->bind(
 );
 
 $app->bind(
-    App\Contracts\Services\Transference\Message\RabbitMQPublisherInterface::class,
+    App\Contracts\Services\Transference\Process\Message\RabbitMQPublisherInterface::class,
     App\Services\Transference\Message\RabbitMQPublisher::class
 );
 

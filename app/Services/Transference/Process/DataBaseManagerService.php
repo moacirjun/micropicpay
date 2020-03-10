@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Transference;
+namespace App\Services\Transference\Process;
 
 use App\Contracts\Repository\TransactionRepositoryInterface;
 use App\Contracts\Repository\WalletRepositoryInterface;
@@ -9,9 +9,13 @@ use App\Entity\Transference;
 use App\Entity\Wallet;
 use Faker\Provider\Uuid;
 use Illuminate\Support\Facades\DB;
-use App\Contracts\Services\Transference\ServiceInterface as TransferenceServiceInterface;
+use App\Contracts\Services\Transference\Process\DataBaseManagerServiceInterface as DataBaseManagerInterface;
 
-class Service implements TransferenceServiceInterface
+/**
+ * Class responsible for making the sequence of changes in the database of a transfer action
+ * @package App\Services\Transference
+ */
+class DataBaseManagerService implements DataBaseManagerInterface
 {
     /**
      * @var TransactionRepositoryInterface
@@ -41,7 +45,7 @@ class Service implements TransferenceServiceInterface
      * @param Payment $payment
      * @return Transference
      */
-    public function processPayment(Payment $payment) : Transference
+    public function persist(Payment $payment) : Transference
     {
         $originUser = $payment->getOriginUser();
         $originWallet = $this->walletRepository->findOneByUser($originUser);

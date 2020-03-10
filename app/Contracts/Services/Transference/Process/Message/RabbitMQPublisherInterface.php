@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contracts\Services\Transference\Message;
+namespace App\Contracts\Services\Transference\Process\Message;
 
 use App\Contracts\RabbitMQ\AbstractPublisherInterface;
 

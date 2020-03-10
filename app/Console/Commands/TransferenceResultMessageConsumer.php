@@ -4,7 +4,7 @@
 namespace App\Console\Commands;
 
 use Anik\Amqp\ConsumableMessage;
-use App\Contracts\Services\Transference\Message\RabbitMQPublisherInterface;
+use App\Contracts\Services\Transference\Process\Message\RabbitMQPublisherInterface;
 use Illuminate\Console\Command;
 
 class TransferenceResultMessageConsumer extends Command

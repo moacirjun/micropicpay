@@ -2,7 +2,7 @@
 
 namespace App\Services\Transference\Message;
 
-use App\Contracts\Services\Transference\Message\RabbitMQPublisherInterface;
+use App\Contracts\Services\Transference\Process\Message\RabbitMQPublisherInterface;
 use App\RabbitMQ\AbstractPublisher;
 
 class RabbitMQPublisher extends AbstractPublisher implements RabbitMQPublisherInterface
