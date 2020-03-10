@@ -10,7 +10,7 @@ use App\Services\Payment\Publisher;
 use App\Services\Payment\RabbitMQPublisher;
 use Illuminate\Http\Request;
 
-class Resolver implements ResolverInterface
+class Handler implements ResolverInterface
 {
     /**
      * @var UserRepositoryInterface
@@ -36,7 +36,7 @@ class Resolver implements ResolverInterface
     /**
      * @inheritDoc
      */
-    public function resolve(Request $request) : Result
+    public function handle(Request $request) : Result
     {
         try {
             $originUser = $request->route('id');

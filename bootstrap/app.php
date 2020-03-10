@@ -93,7 +93,7 @@ $app->bind(
 $app->bind(
     App\Contracts\Services\User\Payment\Request\ResolverInterface::class,
     function ($app) {
-        return new App\Services\Transference\Request\HttpRequest\Resolver(
+        return new App\Services\Transference\Request\HttpRequest\Handler(
             $app->make(App\Contracts\Repository\UserRepositoryInterface::class),
             $app->make(App\Contracts\Services\User\Payment\ServiceInterface::class)
         );

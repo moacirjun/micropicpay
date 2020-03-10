@@ -15,5 +15,5 @@ interface ResolverInterface
      * @param Request $request
      * @return Result
      */
-    public function resolve(Request $request) : Result;
+    public function handle(Request $request) : Result;
 }

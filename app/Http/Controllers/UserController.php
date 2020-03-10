@@ -25,7 +25,7 @@ class UserController extends BaseController
 
     public function pay(Request $request)
     {
-        $result = $this->requestResolver->resolve($request);
+        $result = $this->requestResolver->handle($request);
         return UserPaymentResponseFactory::make($result);
     }
 }
