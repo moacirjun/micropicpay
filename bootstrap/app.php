@@ -81,7 +81,7 @@ $app->singleton(
     }
 );
 
-$app->bind(
+$app->singleton(
     App\Contracts\Services\User\Payment\ValidatorInterface::class,
     function ($app) {
         return new App\Services\Transference\Request\Validator(

@@ -2,8 +2,8 @@
 
 namespace App\Console;
 
-use App\Console\Commands\ConsumeProcessPaymentQueue;
-use App\Console\Commands\TransferenceResultMessageConsumer;
+use App\Console\Commands\ProcessTransferenceQueueConsumer;
+use App\Console\Commands\NotifyTransferenceResultQueueConsumer;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
 
@@ -15,8 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        ConsumeProcessPaymentQueue::class,
-        TransferenceResultMessageConsumer::class,
+        ProcessTransferenceQueueConsumer::class,
+        NotifyTransferenceResultQueueConsumer::class,
     ];
 
     /**

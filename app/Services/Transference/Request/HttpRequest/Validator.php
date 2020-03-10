@@ -16,11 +16,11 @@ class Validator
      */
     public static function validate($originUserId, array $data)
     {
-        $array = array_merge($data, ['origin_user' => $originUserId]);
+        $array = array_merge($data, ['origin_user' => is_numeric($originUserId) ? (int) $originUserId : $originUserId]);
 
         return \Illuminate\Support\Facades\Validator::make($array, [
             'target_user' => 'required|numeric|exists:App\Entity\User,id',
-            'origin_user' => 'required|numeric|exists:App\Entity\User,id',
+            'origin_user' => 'required|numeric|different:target_user|exists:App\Entity\User,id',
             'value' => 'required|numeric'
         ])->errors()->toArray();
     }

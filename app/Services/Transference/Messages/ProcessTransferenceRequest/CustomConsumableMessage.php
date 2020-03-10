@@ -5,6 +5,7 @@ namespace App\Services\Transference\Messages\ProcessTransferenceRequest;
 use Anik\Amqp\ConsumableMessage;
 use App\Contracts\Services\User\Payment\ServiceInterface as TransferenceProcessorService;
 use App\Domain\Payment;
+use SebastianBergmann\CodeCoverage\Report\PHP;
 
 class CustomConsumableMessage extends ConsumableMessage
 {
@@ -21,12 +22,16 @@ class CustomConsumableMessage extends ConsumableMessage
 
     public function handle()
     {
-        $this->printProcessingStream();
+        try {
+            $this->printProcessingStream();
 
-        $payment = unserialize($this->getStream());
+            $payment = unserialize($this->getStream());
 
-        if ($payment instanceof Payment) {
-            $this->transferenceProcessorService->execute($payment);
+            if ($payment instanceof Payment) {
+                $this->transferenceProcessorService->execute($payment);
+            }
+        } catch (\Exception $exception) {
+            echo sprintf('ERROR MSG: %s. CODE: [%s]', $exception->getMessage(), $exception->getCode()) . PHP_EOL;
         }
 
         $this->getDeliveryInfo()->acknowledge();

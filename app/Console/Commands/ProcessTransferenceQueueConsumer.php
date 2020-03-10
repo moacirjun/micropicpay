@@ -6,14 +6,14 @@ namespace App\Console\Commands;
 use App\Services\Transference\Messages\ProcessTransferenceRequest\Consumer;
 use Illuminate\Console\Command;
 
-class ConsumeProcessPaymentQueue extends Command
+class ProcessTransferenceQueueConsumer extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'process-payment:consume';
+    protected $signature = 'process-transference:consume';
 
     /**
      * The console command description.

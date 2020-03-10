@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 interface HandlerInterface
 {
     /**
-     * Resolves the User Payment Request. This method validate request, and create a PaymentResolver Queue
+     * Resolves the User Payment Request. This method validate request, and publish a Process Transference Message
      * or already executes the payment
      * @param Request $request
      * @return HandlerResult

@@ -7,6 +7,7 @@ use App\Contracts\Services\Transference\Process\DataBaseManagerServiceInterface 
 use App\Contracts\Services\User\Payment\ServiceInterface as UserPaymentServiceInterface;
 use App\Contracts\Services\User\Payment\ValidatorInterface as UserPaymentValidatorInterface;
 use App\Contracts\Services\Transference\Process\Message\RabbitMQPublisherInterface;
+use App\Exceptions\TransferenceValidationException;
 
 class Service implements UserPaymentServiceInterface
 {
@@ -50,11 +51,24 @@ class Service implements UserPaymentServiceInterface
         $validationErrors = $this->validator->validate($payment);
 
         if (sizeof($validationErrors)) {
-            throw new \InvalidArgumentException('Erro de validação de pagamento');
+            $this->handleError($validationErrors);
+            throw new TransferenceValidationException('Transference validation error', $validationErrors);
         }
 
         $transference = $this->transferenceDBManagerService->persist($payment);
 
         $this->rabbitMQPublisher->publish($transference->toArray());
+    }
+
+    private function handleError(array $validationErrors)
+    {
+        $errorMessage = [
+            'validation_error' => [
+                'class' => __METHOD__,
+                'errors' => $validationErrors
+            ]
+        ];
+
+        $this->rabbitMQPublisher->publish($errorMessage);
     }
 }
