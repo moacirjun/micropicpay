@@ -7,7 +7,7 @@ use App\Domain\Payment;
 interface ServiceInterface
 {
     /**
-     * Executes the User Payment
+     * Executes the transference
      * @param Payment $payment
      */
     public function execute(Payment $payment);

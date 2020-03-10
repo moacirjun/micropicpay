@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Services\Transference\Request;
+namespace App\Services\Transference\Process;
 
 use App\Domain\Payment;
 use App\Contracts\Services\Transference\ServiceInterface as TransferenceServiceInterface;
-use App\Services\Transference\Message\Publisher as TransferenceMessagePublisher;
 use App\Contracts\Services\User\Payment\ServiceInterface as UserPaymentServiceInterface;
 use App\Contracts\Services\User\Payment\ValidatorInterface as UserPaymentValidatorInterface;
-use App\Services\Transference\Message\RabbitMQPublisher;
 use App\Contracts\Services\Transference\Message\RabbitMQPublisherInterface;
 
 class Service implements UserPaymentServiceInterface
@@ -44,7 +42,8 @@ class Service implements UserPaymentServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * Process the transference
+     * @param Payment $payment
      */
     public function execute(Payment $payment)
     {

@@ -63,7 +63,7 @@ $app->singleton(
 $app->singleton(
     App\Contracts\Services\User\Payment\ServiceInterface::class,
     function ($app) {
-        return new App\Services\Transference\Request\Service(
+        return new App\Services\Transference\Process\Service(
             $app->make(App\Contracts\Services\Transference\ServiceInterface::class),
             $app->make(App\Contracts\Services\User\Payment\ValidatorInterface::class),
             $app->make(App\Contracts\Services\Transference\Message\RabbitMQPublisherInterface::class)
