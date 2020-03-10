@@ -3,6 +3,7 @@
 
 namespace App\Console\Commands;
 
+use App\Services\Payment\RabbitMQQueueConsumer;
 use Illuminate\Console\Command;
 
 class ConsumeProcessPaymentQueue extends Command
@@ -33,6 +34,7 @@ class ConsumeProcessPaymentQueue extends Command
 
     public function handle()
     {
-        echo "Consuming..." . PHP_EOL;
+        $this->info('Consuming Process Payment Messages...');
+        (new RabbitMQQueueConsumer)->consume();
     }
 }

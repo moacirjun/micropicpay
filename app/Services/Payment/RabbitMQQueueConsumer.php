@@ -3,16 +3,18 @@
 namespace App\Services\Payment;
 
 use Anik\Amqp\ConsumableMessage;
+use App\RabbitMQ\AbstractConsumer;
 
-class RabbitMQQueueConsumer
+class RabbitMQQueueConsumer extends AbstractConsumer
 {
-    public static function consume()
+    protected function getRoutingKey(): string
     {
-        app('amqp')->consume(function (ConsumableMessage $message) {
-            echo '---- Processing MSG: ' . $message->getStream() . PHP_EOL;
+        return 'process_payment.message';
+    }
 
-            $message->getDeliveryInfo()->acknowledge();
-        }, 'process_payment.message', [
+    protected function getConfig()
+    {
+        return [
             'exchange'   => [
                 'declare' => true,
                 'type'    => 'direct',
@@ -27,6 +29,14 @@ class RabbitMQQueueConsumer
                 'enabled'            => true,
                 'qos_prefetch_count' => 5,
             ],
-        ]);
+        ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getMessage(): ConsumableMessage
+    {
+        return new RabbitMQQueueConsumerMessage();
     }
 }

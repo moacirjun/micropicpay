@@ -21,18 +21,12 @@ class RabbitMQPublisher extends AbstractPublisher
                 'type' => 'direct',
             ],
             'message' => [
-                'content_type' => 'application/json'
+                'content_type' => 'text/plain',
             ],
             'queue' => [
                 'name' => 'test',
                 'declare' => true,
             ]
         ];
-    }
-
-    public function publish($message)
-    {
-        $json = json_encode($message);
-        parent::publish($json);
     }
 }
