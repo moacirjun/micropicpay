@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\Payment;
+namespace App\Services\Transference\Messages\ProcessTransferenceRequest;
 
 use Anik\Amqp\ConsumableMessage;
 use App\RabbitMQ\AbstractConsumer;
 
-class RabbitMQQueueConsumer extends AbstractConsumer
+class Consumer extends AbstractConsumer
 {
     protected function getRoutingKey(): string
     {
@@ -37,6 +37,6 @@ class RabbitMQQueueConsumer extends AbstractConsumer
      */
     protected function getMessage(): ConsumableMessage
     {
-        return new RabbitMQQueueConsumerMessage();
+        return new CustomConsumableMessage();
     }
 }

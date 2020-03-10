@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\Transference\Message\Process;
+namespace App\Services\Transference\Messages\NotifyTransferenceResult;
 
 use Anik\Amqp\ConsumableMessage;
 use App\Contracts\Services\Transference\Process\Message\RabbitMQPublisherInterface;
 use App\RabbitMQ\AbstractConsumer;
-use App\Services\Transference\Message\Process\ConsumableMessage as TransferenceProcessConsumableMessage;
+use App\Services\Transference\Messages\NotifyTransferenceResult\ConsumableMessage as TransferenceProcessConsumableMessage;
 
 class Consumer extends AbstractConsumer
 {

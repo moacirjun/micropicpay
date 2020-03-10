@@ -3,7 +3,7 @@
 
 namespace App\Console\Commands;
 
-use App\Services\Payment\RabbitMQQueueConsumer;
+use App\Services\Transference\Messages\ProcessTransferenceRequest\Consumer;
 use Illuminate\Console\Command;
 
 class ConsumeProcessPaymentQueue extends Command
@@ -35,6 +35,6 @@ class ConsumeProcessPaymentQueue extends Command
     public function handle()
     {
         $this->info('Consuming Process Payment Messages...');
-        (new RabbitMQQueueConsumer)->consume();
+        (new Consumer)->consume();
     }
 }

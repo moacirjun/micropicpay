@@ -102,7 +102,7 @@ $app->bind(
 
 $app->bind(
     App\Contracts\Services\Transference\Process\Message\RabbitMQPublisherInterface::class,
-    App\Services\Transference\Message\Process\Publisher::class
+    App\Services\Transference\Messages\NotifyTransferenceResult\Publisher::class
 );
 
 /*

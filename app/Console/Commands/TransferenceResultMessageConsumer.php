@@ -3,7 +3,7 @@
 
 namespace App\Console\Commands;
 
-use App\Services\Transference\Message\Process\Consumer as TransferenceMessageProcessConsumer;
+use App\Services\Transference\Messages\NotifyTransferenceResult\Consumer as TransferenceMessageProcessConsumer;
 use Illuminate\Console\Command;
 
 class TransferenceResultMessageConsumer extends Command

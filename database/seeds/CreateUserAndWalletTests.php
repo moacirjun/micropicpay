@@ -34,18 +34,18 @@ class CreateUserAndWalletTests extends Seeder
             [
                 'amount' => 100,
                 'user_id' => $userOne->id,
-                'created_at' => date('Y-m-d H:s:i'),
-                'updated_at' => date('Y-m-d H:s:i'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ], [
                 'amount' => 100,
                 'user_id' => $userTwo->id,
-                'created_at' => date('Y-m-d H:s:i'),
-                'updated_at' => date('Y-m-d H:s:i'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ], [
                 'amount' => 100,
                 'user_id' => $userThree->id,
-                'created_at' => date('Y-m-d H:s:i'),
-                'updated_at' => date('Y-m-d H:s:i'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ],
         ]);
 

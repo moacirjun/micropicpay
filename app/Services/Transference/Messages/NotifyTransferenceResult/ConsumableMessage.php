@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Services\Payment;
+namespace App\Services\Transference\Messages\NotifyTransferenceResult;
 
-use Anik\Amqp\ConsumableMessage;
+use Anik\Amqp\ConsumableMessage as BaseConsumableMessage;
 use App\Contracts\Services\User\Payment\ServiceInterface as TransferenceProcessorService;
-use App\Domain\Payment;
 
-class RabbitMQQueueConsumerMessage extends ConsumableMessage
+class ConsumableMessage extends BaseConsumableMessage
 {
     /**
      * @var TransferenceProcessorService
@@ -22,18 +21,11 @@ class RabbitMQQueueConsumerMessage extends ConsumableMessage
     public function handle()
     {
         $this->printProcessingStream();
-
-        $payment = unserialize($this->getStream());
-
-        if ($payment instanceof Payment) {
-            $this->transferenceProcessorService->execute($payment);
-        }
-
         $this->getDeliveryInfo()->acknowledge();
     }
 
     private function printProcessingStream()
     {
-        echo date('[d/m/Y H:s:i]') . ' Processing MSG: ' . $this->getStream() . PHP_EOL;
+        echo date('[d/m/Y H:i:s]') . ' Processing MSG: ' . $this->getStream() . PHP_EOL;
     }
 }

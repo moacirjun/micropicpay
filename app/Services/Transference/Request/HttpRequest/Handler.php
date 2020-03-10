@@ -6,7 +6,7 @@ use App\Contracts\Repository\UserRepositoryInterface;
 use App\Contracts\Services\User\Payment\Request\HandlerInterface;
 use App\Contracts\Services\User\Payment\ServiceInterface;
 use App\Domain\Payment;
-use App\Services\Payment\RabbitMQPublisher;
+use App\Services\Transference\Messages\ProcessTransferenceRequest\Publisher;
 use Illuminate\Http\Request;
 
 class Handler implements HandlerInterface
@@ -52,7 +52,7 @@ class Handler implements HandlerInterface
 
             $payment = new Payment($originUserInstance, $targetUserInstance, $payload['value']);
 
-            (new RabbitMQPublisher)->publish(serialize($payment)); //Executing payment asynchronously
+            (new Publisher)->publish(serialize($payment)); //Executing payment asynchronously
             //$this->userPaymentService->execute($payment); //Execute payment in User Request
 
             return new HandlerResult($request, $payment);
