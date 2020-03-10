@@ -5,7 +5,7 @@ namespace App\Services\Transference\Request\HttpRequest;
 use App\Domain\Payment;
 use Illuminate\Http\Request;
 
-class Result
+class HandlerResult
 {
     /**
      * @var Request

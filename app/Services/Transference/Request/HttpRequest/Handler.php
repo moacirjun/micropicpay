@@ -3,14 +3,13 @@
 namespace App\Services\Transference\Request\HttpRequest;
 
 use App\Contracts\Repository\UserRepositoryInterface;
-use App\Contracts\Services\User\Payment\Request\ResolverInterface;
+use App\Contracts\Services\User\Payment\Request\HandlerInterface;
 use App\Contracts\Services\User\Payment\ServiceInterface;
 use App\Domain\Payment;
-use App\Services\Payment\Publisher;
 use App\Services\Payment\RabbitMQPublisher;
 use Illuminate\Http\Request;
 
-class Handler implements ResolverInterface
+class Handler implements HandlerInterface
 {
     /**
      * @var UserRepositoryInterface
@@ -36,7 +35,7 @@ class Handler implements ResolverInterface
     /**
      * @inheritDoc
      */
-    public function handle(Request $request) : Result
+    public function handle(Request $request) : HandlerResult
     {
         try {
             $originUser = $request->route('id');
@@ -45,7 +44,7 @@ class Handler implements ResolverInterface
             $validationErrors = Validator::validate($originUser, $payload);
 
             if (sizeof($validationErrors)) {
-                return new Result($request, null, $validationErrors);
+                return new HandlerResult($request, null, $validationErrors);
             }
 
             $originUserInstance = $this->userRepository->find($originUser);
@@ -56,9 +55,9 @@ class Handler implements ResolverInterface
             (new RabbitMQPublisher)->publish(serialize($payment)); //Executing payment asynchronously
             //$this->userPaymentService->execute($payment); //Execute payment in User Request
 
-            return new Result($request, $payment);
+            return new HandlerResult($request, $payment);
         } catch (\Exception $exception) {
-            return new Result($request, null, [$exception->getCode() => $exception->getMessage()]);
+            return new HandlerResult($request, null, [$exception->getCode() => $exception->getMessage()]);
         }
     }
 }

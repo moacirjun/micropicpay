@@ -9,6 +9,9 @@ use App\Enums\UserType as UserTypeEnum;
 use App\Contracts\Repository\WalletRepositoryInterface;
 use App\Contracts\Services\User\Payment\ValidatorInterface as UserPaymentValidatorInterface;
 
+/**
+ * Validates Transference action
+ */
 class Validator implements UserPaymentValidatorInterface
 {
     /**

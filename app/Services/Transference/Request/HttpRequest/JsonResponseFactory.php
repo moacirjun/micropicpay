@@ -8,10 +8,10 @@ use Illuminate\Http\Response;
 class JsonResponseFactory
 {
     /**
-     * @param Result $result
+     * @param HandlerResult $result
      * @return JsonResponse
      */
-    public static function make(Result $result) : JsonResponse
+    public static function make(HandlerResult $result) : JsonResponse
     {
         if (sizeof($result->getErrors()) === 0) {
             return response()->json(

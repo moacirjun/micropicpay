@@ -4,16 +4,16 @@
 namespace App\Contracts\Services\User\Payment\Request;
 
 
-use App\Services\Transference\Request\HttpRequest\Result;
+use App\Services\Transference\Request\HttpRequest\HandlerResult;
 use Illuminate\Http\Request;
 
-interface ResolverInterface
+interface HandlerInterface
 {
     /**
      * Resolves the User Payment Request. This method validate request, and create a PaymentResolver Queue
      * or already executes the payment
      * @param Request $request
-     * @return Result
+     * @return HandlerResult
      */
-    public function handle(Request $request) : Result;
+    public function handle(Request $request) : HandlerResult;
 }

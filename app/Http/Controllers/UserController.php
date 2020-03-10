@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Services\User\Payment\Request\ResolverInterface as UserPaymentRequestResolverInterface;
+use App\Contracts\Services\User\Payment\Request\HandlerInterface as UserPaymentRequestResolverInterface;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Services\Transference\Request\HttpRequest\JsonResponseFactory as UserPaymentResponseFactory;

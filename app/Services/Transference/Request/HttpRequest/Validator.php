@@ -3,6 +3,9 @@
 
 namespace App\Services\Transference\Request\HttpRequest;
 
+/**
+ * Validates User Transference Http Request body
+ */
 class Validator
 {
     /**
