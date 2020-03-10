@@ -1,24 +1,57 @@
-# Lumen PHP Framework
+# Micro PicPay - Um Microsserviço PHP  
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+Um microsserviço com a funcionalidade de fazer transferências entre usuários
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+## Fluxo
+1. O usuário faz uma requisição para o endpoint de pagamento `\api\v1\user\{id}\pay` 
+1. Essa requisição publica uma mensagem para o exchange `process-transference` no RabbitMQ
+1. Um consumer processa a fila que está recebendo mesagens desse exchange
+1. O processamento dessa fila publica uma mensagem no exchange `notify-transference` com o status 
+da transferência
 
-## Official Documentation
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+## Tecnologias utilizadas
 
-## Contributing
+- Lumen v6.0
+- RabbitMQ
+- [anik/amqp](https://github.com/ssi-anik/amqp) - Um wrapper que auxilia com RabbitMQ
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Instalação
 
-## Security Vulnerabilities
+- Clonando o repositório
+> `git clone git@github.com:moacirjun/micropicpay.git`
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+- Entre no diretório criado e instale as dependências com o Composer
 
-## License
+> `composer install`
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Verifique suas variáveis de ambiente
+
+> `cp .env.example .env`
+
+- Depois de configurar seu acesso ao banco de dados rode as migrations com seeders
+> `php artisan migrate --seed`
+
+- RabbitMQ Docker container
+> `docker-compose up -d`
+
+- Server API
+> `php -S localhost:9090 -t public`
+
+- Para consumir as filas de processamento e notificação de transferência
+> Eles também são responsáveis 
+por criar as filas. Antes disso as mensagens publicadas no RabbitMQ serão perdidas
+
+> `php artisan process-transference:consume`
+
+> `php artisan notify-transference-result:consume`
+
+- cURL para teste
+```shell script
+curl --request POST \
+  --url http://localhost:9090/api/v1/user/2/pay \
+  --header 'cache-control: no-cache' \
+  --header 'content-type: application/json' \
+  --header 'postman-token: 3913f260-eee4-6bce-3929-ac21ac423244' \
+  --data '{\n	"target_user": 1,\n	"value": 0.01\n}'
+```
