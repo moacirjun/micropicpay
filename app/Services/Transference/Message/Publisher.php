@@ -2,12 +2,12 @@
 
 namespace App\Services\Transference\Message;
 
-use App\Entity\Transaction;
+use App\Entity\Transference;
 
 class Publisher
 {
 
-    public static function publish(Transaction $transference)
+    public static function publish(Transference $transference)
     {
         return true;
     }

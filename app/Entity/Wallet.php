@@ -18,11 +18,11 @@ class Wallet extends Model
 
     public function payments()
     {
-        return $this->hasMany('App\Entity\Transaction', 'origin_wallet_id');
+        return $this->hasMany('App\Entity\Transference', 'origin_wallet_id');
     }
 
     public function paymentsReceived()
     {
-        return $this->hasMany('App\Entity\Transaction', 'target_wallet_id');
+        return $this->hasMany('App\Entity\Transference', 'target_wallet_id');
     }
 }

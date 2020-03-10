@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Contracts\Repository\TransactionRepositoryInterface;
-use App\Entity\Transaction;
+use App\Entity\Transference;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class TransactionRepository extends BaseRepository implements TransactionRepositoryInterface
@@ -13,6 +13,6 @@ class TransactionRepository extends BaseRepository implements TransactionReposit
      */
     public function model()
     {
-        return Transaction::class;
+        return Transference::class;
     }
 }

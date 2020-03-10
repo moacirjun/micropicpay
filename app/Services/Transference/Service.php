@@ -5,7 +5,7 @@ namespace App\Services\Transference;
 use App\Contracts\Repository\TransactionRepositoryInterface;
 use App\Contracts\Repository\WalletRepositoryInterface;
 use App\Domain\Payment;
-use App\Entity\Transaction;
+use App\Entity\Transference;
 use App\Entity\Wallet;
 use Faker\Provider\Uuid;
 use Illuminate\Support\Facades\DB;
@@ -39,9 +39,9 @@ class Service implements TransferenceServiceInterface
     /**
      * Insets a Transference in database and modify the value of the destination and source wallets
      * @param Payment $payment
-     * @return Transaction
+     * @return Transference
      */
-    public function processPayment(Payment $payment) : Transaction
+    public function processPayment(Payment $payment) : Transference
     {
         $originUser = $payment->getOriginUser();
         $originWallet = $this->walletRepository->findOneByUser($originUser);

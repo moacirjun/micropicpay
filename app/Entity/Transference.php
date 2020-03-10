@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class Transference extends Model
 {
     /**
      * @inheritDoc
